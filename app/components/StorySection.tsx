@@ -13,79 +13,30 @@ export function StorySection({ photo, photoAlt, name, tagline, bio }: StorySecti
 
   return (
     <section aria-label="Historia de Pablo Orozco">
-      {/* Mobile + Tablet: vertical stack */}
-      <div className="xl:hidden" style={{ padding: '40px 16px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <div
+        className="flex flex-col xl:flex-row xl:items-start"
+        style={{ padding: '40px 16px', gap: 32 }}
+      >
+        {/* Foto */}
         <div
-          style={{
-            position: 'relative',
-            width: '100%',
-            aspectRatio: '4 / 5',
-            borderRadius: 8,
-            overflow: 'hidden',
-            background: 'var(--surface)',
-          }}
+          className="relative w-full aspect-[4/5] xl:w-[280px] xl:h-[340px] xl:aspect-auto xl:shrink-0"
+          style={{ borderRadius: 8, overflow: 'hidden', background: 'var(--surface)' }}
         >
-          <Image src={photo} alt={photoAlt} fill style={{ objectFit: 'cover' }} sizes="100vw" />
+          <Image
+            src={photo}
+            alt={photoAlt}
+            fill
+            style={{ objectFit: 'cover' }}
+            sizes="(min-width: 1280px) 280px, 100vw"
+          />
         </div>
+
+        {/* Texto */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           <h1
             style={{
               fontFamily: 'var(--font-display)',
               fontSize: 28,
-              fontWeight: 900,
-              color: 'var(--text-primary)',
-              lineHeight: 1.1,
-            }}
-          >
-            {name}
-          </h1>
-          <p
-            style={{
-              fontFamily: 'var(--font-body)',
-              fontSize: 13,
-              color: 'var(--red)',
-              fontWeight: 500,
-              letterSpacing: '1px',
-            }}
-          >
-            {tagline}
-          </p>
-          {bioParagraphs.map((p, i) => (
-            <p
-              key={i}
-              style={{
-                fontFamily: 'var(--font-body)',
-                fontSize: 15,
-                color: 'var(--text-secondary)',
-                lineHeight: 1.6,
-              }}
-            >
-              {p}
-            </p>
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop: side by side */}
-      <div className="hidden xl:flex" style={{ padding: '64px 64px', gap: 64, alignItems: 'flex-start' }}>
-        <div
-          style={{
-            position: 'relative',
-            width: 320,
-            height: 400,
-            borderRadius: 8,
-            overflow: 'hidden',
-            background: 'var(--surface)',
-            flexShrink: 0,
-          }}
-        >
-          <Image src={photo} alt={photoAlt} fill style={{ objectFit: 'cover' }} sizes="320px" />
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12, paddingTop: 8 }}>
-          <h1
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 36,
               fontWeight: 900,
               color: 'var(--text-primary)',
               lineHeight: 1.1,
