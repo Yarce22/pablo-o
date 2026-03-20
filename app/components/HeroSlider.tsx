@@ -70,11 +70,22 @@ export function HeroSlider({ slides, tagline, heroTitle }: HeroSliderProps) {
           }}
           aria-hidden={i !== current}
         >
+          {/* Fondo blur — misma imagen escalada y desenfocada */}
+          <Image
+            src={slide.image}
+            alt=""
+            fill
+            style={{ objectFit: 'cover', filter: 'blur(24px)', transform: 'scale(1.1)' }}
+            priority={i === 0}
+            sizes="100vw"
+            aria-hidden="true"
+          />
+          {/* Imagen principal completa */}
           <Image
             src={slide.image}
             alt={slide.altText}
             fill
-            style={{ objectFit: 'cover', objectPosition: 'center' }}
+            style={{ objectFit: 'contain' }}
             priority={i === 0}
             sizes="100vw"
           />

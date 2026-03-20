@@ -85,7 +85,15 @@ export function FeaturedWork({ title, items }: FeaturedWorkProps) {
       >
         {title}
       </h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+      {/* Mobile y tablet: columna vertical */}
+      <div className="xl:hidden" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        {items.map((item) => (
+          <FeaturedCard key={item.id} item={item} />
+        ))}
+      </div>
+
+      {/* Desktop: 3 columnas */}
+      <div className="hidden xl:grid" style={{ gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
         {items.map((item) => (
           <FeaturedCard key={item.id} item={item} />
         ))}
