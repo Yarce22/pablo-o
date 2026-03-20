@@ -43,7 +43,7 @@ export default function PortfolioClient({
   return (
     <>
       {/* Page header */}
-      <div style={{ padding: '32px 16px 0' }} className="md:px-8 xl:px-16 xl:pt-12">
+      <div style={{ padding: '32px var(--page-px) 0' }}>
         <h1
           style={{
             fontFamily: 'var(--font-display)',

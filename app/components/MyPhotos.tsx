@@ -9,7 +9,7 @@ export function MyPhotos({ title, photos }: MyPhotosProps) {
   if (photos.length === 0) return null;
 
   return (
-    <section aria-label={title} style={{ padding: '32px' }}>
+    <section aria-label={title} style={{ padding: '32px var(--page-px)' }}>
       <h2
         style={{
           fontFamily: 'var(--font-display)',

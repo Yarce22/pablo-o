@@ -219,6 +219,61 @@ export async function getTools(): Promise<ContentfulTool[]> {
 }
 
 // ─────────────────────────────────────────
+// PORTFOLIO PROJECT DETAIL
+// ─────────────────────────────────────────
+interface PortfolioProjectDetailFields {
+  title: string;
+  slug: string;
+  category: CfLink;
+  thumbnail: CfLink;
+  altText: string;
+  description?: string;
+  images?: CfLink[];
+  videoUrl?: string;
+  featured?: boolean;
+}
+
+export interface PortfolioProjectDetail {
+  id: string;
+  title: string;
+  slug: string;
+  categoryName: string;
+  categorySlug: string;
+  thumbnail: string;
+  altText: string;
+  description: string;
+  images: string[];
+  videoUrl: string | null;
+}
+
+export async function getPortfolioProject(
+  slug: string,
+): Promise<PortfolioProjectDetail | null> {
+  const data = await cfFetch<PortfolioProjectDetailFields>('portfolioProject', {
+    'fields.slug': slug,
+    include: '2',
+  });
+  const item = data.items[0];
+  if (!item) return null;
+  const f = item.fields;
+  const catEntry = resolveEntry<PortfolioCategoryFields>(f.category, data.includes);
+  return {
+    id: item.sys.id,
+    title: f.title,
+    slug: f.slug,
+    categoryName: catEntry?.fields.name ?? '',
+    categorySlug: catEntry?.fields.slug ?? '',
+    thumbnail: resolveAsset(f.thumbnail, data.includes) ?? '',
+    altText: f.altText,
+    description: f.description ?? '',
+    images: (f.images ?? [])
+      .map((link) => resolveAsset(link, data.includes))
+      .filter((url): url is string => !!url),
+    videoUrl: f.videoUrl ?? null,
+  };
+}
+
+// ─────────────────────────────────────────
 // SERVICES
 // ─────────────────────────────────────────
 interface ServiceFields {

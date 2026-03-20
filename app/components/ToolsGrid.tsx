@@ -74,7 +74,7 @@ function ToolItem({ tool }: { tool: Tool }) {
 
 export function ToolsGrid({ title, tools, toolImageUrl }: ToolsGridProps) {
   return (
-    <section aria-label={title} style={{ padding: '32px' }}>
+    <section aria-label={title} style={{ padding: '32px var(--page-px)' }}>
       <h2
         style={{
           fontFamily: 'var(--font-display)',

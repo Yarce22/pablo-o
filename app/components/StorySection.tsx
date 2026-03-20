@@ -15,7 +15,7 @@ export function StorySection({ photo, photoAlt, name, tagline, bio }: StorySecti
     <section aria-label="Historia de Pablo Orozco">
       <div
         className="flex flex-col xl:flex-row xl:items-start"
-        style={{ padding: '40px 16px', gap: 32 }}
+        style={{ padding: '40px var(--page-px)', gap: 32 }}
       >
         {/* Foto */}
         <div

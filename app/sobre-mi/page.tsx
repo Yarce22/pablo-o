@@ -3,7 +3,7 @@ import { StorySection } from '../components/StorySection';
 import { ToolsGrid } from '../components/ToolsGrid';
 import { FeaturedWork } from '../components/FeaturedWork';
 import { ServicesGrid } from '../components/ServicesGrid';
-import { getAboutPage, getTools, getServices } from '../lib/contentful-api';
+import { getAboutPage, getTools, getServices, getPortfolioProjects } from '../lib/contentful-api';
 import { MyPhotos } from '../components/MyPhotos';
 import {
   aboutData as mockAboutData,
@@ -23,10 +23,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function AboutPage() {
-  const [about, cfTools, cfServices] = await Promise.all([
+  const [about, cfTools, cfServices, cfProjects] = await Promise.all([
     getAboutPage().catch(() => null),
     getTools().catch(() => []),
     getServices().catch(() => []),
+    getPortfolioProjects().catch(() => []),
   ]);
 
   const profilePhoto = about?.profilePhotoUrl ?? mockAboutData.profilePhoto;
@@ -41,6 +42,18 @@ export default async function AboutPage() {
   const tools = cfTools.length > 0 ? cfTools : mockTools;
   type ServiceItem = { id: string; name: string; description: string; icon?: string; iconUrl?: string };
   const services: ServiceItem[] = cfServices.length > 0 ? cfServices : mockServices;
+
+  const cfFeatured = cfProjects
+    .filter((p) => p.featured)
+    .map((p) => ({
+      id: p.id,
+      title: p.title,
+      description: '',
+      image: p.thumbnail,
+      altText: p.altText,
+      link: `/portafolio/${p.slug}`,
+    }));
+  const featured = cfFeatured.length > 0 ? cfFeatured : featuredWork;
 
   return (
     <>
@@ -74,7 +87,7 @@ export default async function AboutPage() {
       <div style={{ borderTop: '1px solid var(--border)', margin: '0 16px' }} className="md:mx-8 xl:mx-16" />
 
       {/* Sección 3: Featured Work */}
-      <FeaturedWork title={featuredSectionTitle} items={featuredWork} />
+      <FeaturedWork title={featuredSectionTitle} items={featured} />
 
       {/* Divider */}
       <div style={{ borderTop: '1px solid var(--border)', margin: '0 16px' }} className="md:mx-8 xl:mx-16" />

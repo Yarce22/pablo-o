@@ -40,7 +40,7 @@ function ServiceCard({ service }: { service: Service }) {
     <div
       style={{
         display: 'flex',
-        alignItems: 'flex-start',
+        alignItems: 'center',
         gap: 16,
         padding: 20,
         background: 'var(--surface)',
@@ -118,7 +118,7 @@ export function ServicesGrid({ title, services }: ServicesGridProps) {
   return (
     <section
       aria-label={title}
-      style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 20 }}
+      style={{ padding: '32px var(--page-px)', display: 'flex', flexDirection: 'column', gap: 20 }}
     >
       <h2
         style={{
@@ -130,7 +130,7 @@ export function ServicesGrid({ title, services }: ServicesGridProps) {
       >
         {title}
       </h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+      <div className="flex flex-col xl:grid" style={{ gap: 16, gridTemplateColumns: 'repeat(2, 1fr)' }}>
         {services.map((s) => (
           <ServiceCard key={s.id} service={s} />
         ))}

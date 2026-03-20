@@ -54,7 +54,7 @@ function FeaturedCard({ item }: { item: FeaturedItem }) {
 
 export function FeaturedWork({ title, items }: FeaturedWorkProps) {
   return (
-    <section aria-label={title} style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+    <section aria-label={title} style={{ padding: '32px var(--page-px)', display: 'flex', flexDirection: 'column', gap: 20 }}>
       <h2 style={{ fontFamily: 'var(--font-display)', fontSize: 26, fontWeight: 800, color: 'var(--text-primary)' }}>
         {title}
       </h2>
