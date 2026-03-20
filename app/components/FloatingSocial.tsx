@@ -30,7 +30,9 @@ export function FloatingSocial() {
       }}
     >
       <a
-        href="#"
+        href="https://www.instagram.com/pablo_o_c_/"
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Seguir a Pablo Orozco en Instagram"
         style={{
           width: 52,
@@ -57,7 +59,9 @@ export function FloatingSocial() {
       </a>
 
       <a
-        href="#"
+        href="https://wa.me/573136417409"
+        target="_blank"
+        rel="noopener noreferrer"
         aria-label="Contactar a Pablo Orozco por WhatsApp"
         style={{
           width: 52,

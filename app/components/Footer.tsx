@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { getSiteSettings } from '../lib/contentful-api';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -23,7 +24,15 @@ function WhatsAppIcon({ size = 20 }: { size?: number }) {
   );
 }
 
-export function Footer() {
+export async function Footer() {
+  const settings = await getSiteSettings().catch(() => null);
+  const ctaQuestion =
+    settings?.footerCtaQuestion ?? '¿Listo para crear algo increíble?';
+  const ctaButtonText = settings?.footerCtaButtonText ?? 'Contáctame';
+  const copyrightText =
+    settings?.copyrightText ?? '© 2026 Pablo Orozco. Todos los derechos reservados.';
+  const brandName = settings?.siteName ?? 'Pablo Orozco';
+
   return (
     <footer style={{ background: 'var(--bg)', borderTop: '1px solid var(--border)' }}>
       {/* ── Mobile (< 768px) ── */}
@@ -41,7 +50,7 @@ export function Footer() {
               color: 'var(--text-primary)',
             }}
           >
-            ¿Listo para crear algo increíble?
+            {ctaQuestion}
           </p>
           <Link
             href="/contacto"
@@ -60,7 +69,7 @@ export function Footer() {
               padding: '0 32px',
             }}
           >
-            Contáctame
+            {ctaButtonText}
           </Link>
         </div>
 
@@ -93,12 +102,12 @@ export function Footer() {
               color: 'var(--text-primary)',
             }}
           >
-            Pablo Orozco
+            {brandName}
           </span>
           <div className="flex" style={{ gap: 12 }}>
             <a
               href="#"
-              aria-label="Instagram de Pablo Orozco"
+              aria-label={`Instagram de ${brandName}`}
               style={{
                 width: 36,
                 height: 36,
@@ -114,7 +123,7 @@ export function Footer() {
             </a>
             <a
               href="#"
-              aria-label="WhatsApp de Pablo Orozco"
+              aria-label={`WhatsApp de ${brandName}`}
               style={{
                 width: 36,
                 height: 36,
@@ -139,7 +148,7 @@ export function Footer() {
             color: 'var(--text-muted)',
           }}
         >
-          © 2026 Pablo Orozco. Todos los derechos reservados.
+          {copyrightText}
         </p>
       </div>
 
@@ -160,7 +169,7 @@ export function Footer() {
                 color: 'var(--text-primary)',
               }}
             >
-              ¿Listo para crear algo increíble?
+              {ctaQuestion}
             </p>
             <Link
               href="/contacto"
@@ -180,7 +189,7 @@ export function Footer() {
                 alignSelf: 'flex-start',
               }}
             >
-              Contáctame
+              {ctaButtonText}
             </Link>
           </div>
 
@@ -214,12 +223,12 @@ export function Footer() {
                 color: 'var(--text-primary)',
               }}
             >
-              Pablo Orozco
+              {brandName}
             </span>
             <div className="flex" style={{ gap: 12 }}>
               <a
                 href="#"
-                aria-label="Instagram de Pablo Orozco"
+                aria-label={`Instagram de ${brandName}`}
                 style={{
                   width: 36,
                   height: 36,
@@ -236,7 +245,7 @@ export function Footer() {
               </a>
               <a
                 href="#"
-                aria-label="WhatsApp de Pablo Orozco"
+                aria-label={`WhatsApp de ${brandName}`}
                 style={{
                   width: 36,
                   height: 36,
@@ -264,7 +273,7 @@ export function Footer() {
             textAlign: 'center',
           }}
         >
-          © 2026 Pablo Orozco. Todos los derechos reservados.
+          {copyrightText}
         </p>
       </div>
     </footer>

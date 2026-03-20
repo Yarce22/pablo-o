@@ -1,59 +1,46 @@
-'use client';
+import type { Metadata } from 'next';
+import {
+  getPortfolioPage,
+  getPortfolioCategories,
+  getPortfolioProjects,
+} from '../lib/contentful-api';
+import { portfolioProjects as mockProjects } from '../lib/mock-data';
+import PortfolioClient from './PortfolioClient';
 
-import { useState } from 'react';
-import { FilterPills } from '../components/FilterPills';
-import { PortfolioGrid } from '../components/PortfolioGrid';
-import { portfolioCategories, portfolioProjects } from '../lib/mock-data';
+export async function generateMetadata(): Promise<Metadata> {
+  const page = await getPortfolioPage().catch(() => null);
+  return {
+    title: page?.seoTitle ?? 'Portafolio',
+    description: page?.seoDescription ?? 'Proyectos de Pablo Orozco.',
+  };
+}
 
-export default function PortfolioPage() {
-  const [activeCategory, setActiveCategory] = useState('todos');
+export default async function PortfolioPage() {
+  const [pageData, cfCategories, cfProjects] = await Promise.all([
+    getPortfolioPage().catch(() => null),
+    getPortfolioCategories().catch(() => []),
+    getPortfolioProjects().catch(() => []),
+  ]);
 
-  const filtered =
-    activeCategory === 'todos'
-      ? portfolioProjects
-      : portfolioProjects.filter((p) => p.category === activeCategory);
+  const title = pageData?.title ?? 'Portafolio';
+  const subtitle =
+    pageData?.subtitle ?? 'Explorá mi trabajo en fotografía, video y animación.';
+
+  // Always prepend "Todos", then CMS categories
+  const categories = [
+    { id: 'all', name: 'Todos', slug: 'todos' },
+    ...cfCategories,
+  ];
+
+  // Use CMS projects; fall back to mock only if CMS returns nothing
+  const projects = cfProjects.length > 0 ? cfProjects : mockProjects;
 
   return (
-    <>
-      {/* Page header */}
-      <div style={{ padding: '32px 16px 0' }} className="md:px-8 xl:px-16 xl:pt-12">
-        <h1
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontWeight: 900,
-            letterSpacing: '-1px',
-            color: 'var(--text-primary)',
-            fontSize: 32,
-            lineHeight: 1.1,
-          }}
-          className="md:text-[40px] xl:text-[56px]"
-        >
-          Portafolio
-        </h1>
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            color: 'var(--text-secondary)',
-            marginTop: 8,
-            fontSize: 14,
-          }}
-          className="md:text-base xl:text-lg"
-        >
-          Explorá mi trabajo en fotografía, video y animación.
-        </p>
-      </div>
-
-      {/* Filter pills */}
-      <div style={{ marginTop: 24 }} className="md:mt-6">
-        <FilterPills
-          categories={portfolioCategories}
-          active={activeCategory}
-          onSelect={setActiveCategory}
-        />
-      </div>
-
-      {/* Grid */}
-      <PortfolioGrid projects={filtered} />
-    </>
+    <PortfolioClient
+      title={title}
+      subtitle={subtitle}
+      categories={categories}
+      projects={projects}
+    />
   );
 }

@@ -74,82 +74,21 @@ function FeaturedCard({ item }: { item: FeaturedItem }) {
 
 export function FeaturedWork({ title, items }: FeaturedWorkProps) {
   return (
-    <section aria-label={title}>
-      {/* Mobile: stacked */}
-      <div
-        className="md:hidden"
-        style={{ padding: '32px 16px', display: 'flex', flexDirection: 'column', gap: 20 }}
+    <section aria-label={title} style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 20 }}>
+      <h2
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 26,
+          fontWeight: 800,
+          color: 'var(--text-primary)',
+        }}
       >
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 22,
-            fontWeight: 800,
-            color: 'var(--text-primary)',
-          }}
-        >
-          {title}
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-          {items.map((item) => (
-            <FeaturedCard key={item.id} item={item} />
-          ))}
-        </div>
-      </div>
-
-      {/* Tablet: horizontal scroll */}
-      <div
-        className="hidden md:flex xl:hidden flex-col"
-        style={{ padding: '32px', gap: 20 }}
-      >
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 26,
-            fontWeight: 800,
-            color: 'var(--text-primary)',
-          }}
-        >
-          {title}
-        </h2>
-        <div
-          className="filter-scroll"
-          style={{ display: 'flex', gap: 16, paddingBottom: 8 }}
-        >
-          {items.map((item) => (
-            <div key={item.id} style={{ width: 280, flexShrink: 0 }}>
-              <FeaturedCard item={item} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop: row of 3 */}
-      <div
-        className="hidden xl:flex flex-col"
-        style={{ padding: '48px 64px', gap: 24 }}
-      >
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 32,
-            fontWeight: 800,
-            color: 'var(--text-primary)',
-          }}
-        >
-          {title}
-        </h2>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 24,
-          }}
-        >
-          {items.map((item) => (
-            <FeaturedCard key={item.id} item={item} />
-          ))}
-        </div>
+        {title}
+      </h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        {items.map((item) => (
+          <FeaturedCard key={item.id} item={item} />
+        ))}
       </div>
     </section>
   );

@@ -1,26 +1,52 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
+import { NextResponse } from 'next/server';
 
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const { nombre, whatsapp, ciudad, correo, servicio } = body;
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-    // Basic server-side validation
-    if (!nombre || !whatsapp || !ciudad || !correo || !servicio) {
-      return NextResponse.json(
-        { error: 'Todos los campos son requeridos.' },
-        { status: 400 }
-      );
-    }
+export async function POST(request: Request) {
+  const { nombre, whatsapp, ciudad, correo, servicio } = await request.json();
 
-    // TODO: Connect to Resend / SendGrid / WhatsApp Business API
-    console.log('Contact form submission:', { nombre, whatsapp, ciudad, correo, servicio });
-
-    return NextResponse.json({ success: true }, { status: 200 });
-  } catch {
-    return NextResponse.json(
-      { error: 'Error interno del servidor.' },
-      { status: 500 }
-    );
+  if (!nombre || !whatsapp || !ciudad || !correo || !servicio) {
+    return NextResponse.json({ error: 'Campos incompletos' }, { status: 400 });
   }
+
+  const { error } = await resend.emails.send({
+    from: 'Portafolio Pablo Orozco <onboarding@resend.dev>',
+    to: 'orozcocastropablo99@gmail.com',
+    replyTo: correo,
+    subject: `Nuevo mensaje de ${nombre} — ${servicio}`,
+    html: `
+      <div style="font-family: sans-serif; max-width: 560px; margin: 0 auto;">
+        <h2 style="margin-bottom: 24px;">Nuevo mensaje desde el portafolio</h2>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 10px 0; color: #666; width: 120px;">Nombre</td>
+            <td style="padding: 10px 0; font-weight: 600;">${nombre}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;">WhatsApp</td>
+            <td style="padding: 10px 0; font-weight: 600;">${whatsapp}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;">Ciudad</td>
+            <td style="padding: 10px 0; font-weight: 600;">${ciudad}</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;">Correo</td>
+            <td style="padding: 10px 0; font-weight: 600;"><a href="mailto:${correo}">${correo}</a></td>
+          </tr>
+          <tr>
+            <td style="padding: 10px 0; color: #666;">Servicio</td>
+            <td style="padding: 10px 0; font-weight: 600;">${servicio}</td>
+          </tr>
+        </table>
+      </div>
+    `,
+  });
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({ ok: true });
 }

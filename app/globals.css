@@ -4,6 +4,7 @@
    DESIGN TOKENS — DARK MODE (default)
    ========================================= */
 :root {
+  --nav-height: 56px;
   --bg: #060609;
   --surface: #2f3035;
   --red: #eb2525;
@@ -99,16 +100,16 @@ button {
 .hero-section {
   position: relative;
   overflow: hidden;
-  height: 580px;
+  height: calc(100dvh - var(--nav-height));
   background: var(--bg);
 }
 
 @media (min-width: 768px) {
-  .hero-section { height: 680px; }
+  :root { --nav-height: 64px; }
 }
 
 @media (min-width: 1280px) {
-  .hero-section { height: 828px; }
+  :root { --nav-height: 72px; }
 }
 
 .hero-content-pad {

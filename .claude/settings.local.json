@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:cdn.contentful.com)",
+      "Bash(curl:*)",
+      "Bash(npm install:*)",
+      "Bash(\"C:\\\\Users\\\\alejo\\\\Documents\\\\Programacion\\\\pablo-portfolio\\\\app\\\\api\\\\contact\\\\route.ts\")"
+    ]
+  }
+}

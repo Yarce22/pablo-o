@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import {
   Camera,
   Video,
@@ -23,7 +24,8 @@ interface Service {
   id: string;
   name: string;
   description: string;
-  icon: string;
+  icon?: string;
+  iconUrl?: string;
 }
 
 interface ServicesGridProps {
@@ -32,7 +34,7 @@ interface ServicesGridProps {
 }
 
 function ServiceCard({ service }: { service: Service }) {
-  const Icon = ICON_MAP[service.icon] ?? Box;
+  const Icon = service.icon ? (ICON_MAP[service.icon] ?? Box) : null;
 
   return (
     <div
@@ -68,11 +70,24 @@ function ServiceCard({ service }: { service: Service }) {
           justifyContent: 'center',
           color: 'var(--red)',
           flexShrink: 0,
+          position: 'relative',
+          overflow: 'hidden',
         }}
         aria-hidden="true"
       >
-        <Icon size={22} />
+        {service.iconUrl ? (
+          <Image
+            src={service.iconUrl}
+            alt={service.name}
+            fill
+            style={{ objectFit: 'contain', padding: 8 }}
+            sizes="44px"
+          />
+        ) : Icon ? (
+          <Icon size={22} />
+        ) : null}
       </div>
+
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         <p
           style={{
@@ -101,71 +116,24 @@ function ServiceCard({ service }: { service: Service }) {
 
 export function ServicesGrid({ title, services }: ServicesGridProps) {
   return (
-    <section aria-label={title}>
-      {/* Mobile: stacked */}
-      <div
-        className="md:hidden"
-        style={{ padding: '32px 16px', display: 'flex', flexDirection: 'column', gap: 16 }}
+    <section
+      aria-label={title}
+      style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: 20 }}
+    >
+      <h2
+        style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 26,
+          fontWeight: 800,
+          color: 'var(--text-primary)',
+        }}
       >
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 22,
-            fontWeight: 800,
-            color: 'var(--text-primary)',
-          }}
-        >
-          {title}
-        </h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          {services.map((s) => (
-            <ServiceCard key={s.id} service={s} />
-          ))}
-        </div>
-      </div>
-
-      {/* Tablet: 2 cols */}
-      <div
-        className="hidden md:flex xl:hidden flex-col"
-        style={{ padding: '32px', gap: 20 }}
-      >
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 26,
-            fontWeight: 800,
-            color: 'var(--text-primary)',
-          }}
-        >
-          {title}
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
-          {services.map((s) => (
-            <ServiceCard key={s.id} service={s} />
-          ))}
-        </div>
-      </div>
-
-      {/* Desktop: 3 cols */}
-      <div
-        className="hidden xl:flex flex-col"
-        style={{ padding: '48px 64px', gap: 24 }}
-      >
-        <h2
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 32,
-            fontWeight: 800,
-            color: 'var(--text-primary)',
-          }}
-        >
-          {title}
-        </h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
-          {services.map((s) => (
-            <ServiceCard key={s.id} service={s} />
-          ))}
-        </div>
+        {title}
+      </h2>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 16 }}>
+        {services.map((s) => (
+          <ServiceCard key={s.id} service={s} />
+        ))}
       </div>
     </section>
   );
