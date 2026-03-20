@@ -141,14 +141,19 @@ export async function Footer() {
         </div>
 
         {/* Copyright */}
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 11,
-            color: 'var(--text-muted)',
-          }}
-        >
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: 11, color: 'var(--text-muted)' }}>
           {copyrightText}
+        </p>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: 11, color: 'var(--text-muted)' }}>
+          Portafolio creado por{' '}
+          <a
+            href="https://www.instagram.com/yarce.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--text-muted)', textDecoration: 'underline' }}
+          >
+            Yarce.dev
+          </a>
         </p>
       </div>
 
@@ -265,15 +270,19 @@ export async function Footer() {
         </div>
 
         {/* Copyright */}
-        <p
-          style={{
-            fontFamily: 'var(--font-body)',
-            fontSize: 11,
-            color: 'var(--text-muted)',
-            textAlign: 'center',
-          }}
-        >
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: 11, color: 'var(--text-muted)', textAlign: 'center' }}>
           {copyrightText}
+        </p>
+        <p style={{ fontFamily: 'var(--font-body)', fontSize: 11, color: 'var(--text-muted)', textAlign: 'center' }}>
+          Portafolio creado por{' '}
+          <a
+            href="https://www.instagram.com/yarce.dev/"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: 'var(--text-muted)', textDecoration: 'underline' }}
+          >
+            Yarce.dev
+          </a>
         </p>
       </div>
     </footer>
