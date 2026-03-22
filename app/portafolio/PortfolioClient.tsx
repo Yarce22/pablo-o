@@ -17,7 +17,8 @@ interface Project {
   category: string;
   thumbnail: string;
   altText: string;
-  height: number;
+  thumbnailWidth: number;
+  thumbnailHeight: number;
 }
 
 interface PortfolioClientProps {

@@ -4,7 +4,14 @@ export type CfLink = {
 
 export interface CfAsset {
   sys: { id: string; type: 'Asset' };
-  fields: { title: string; file: { url: string; contentType: string } };
+  fields: {
+    title: string;
+    file: {
+      url: string;
+      contentType: string;
+      details?: { image?: { width: number; height: number } };
+    };
+  };
 }
 
 export interface CfEntry<T> {
@@ -30,6 +37,22 @@ export function resolveAsset(
   if (!asset) return null;
   const url = asset.fields.file.url;
   return url.startsWith('//') ? `https:${url}` : url;
+}
+
+export function resolveAssetWithDimensions(
+  link: CfLink | undefined,
+  includes: CfResponse<unknown>['includes'],
+): { url: string; width: number; height: number } | null {
+  if (!link || !includes?.Asset) return null;
+  const asset = includes.Asset.find((a) => a.sys.id === link.sys.id);
+  if (!asset) return null;
+  const url = asset.fields.file.url;
+  const img = asset.fields.file.details?.image;
+  return {
+    url: url.startsWith('//') ? `https:${url}` : url,
+    width: img?.width ?? 600,
+    height: img?.height ?? 400,
+  };
 }
 
 export function resolveEntry<T>(

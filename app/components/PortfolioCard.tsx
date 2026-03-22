@@ -7,7 +7,8 @@ interface PortfolioCardProps {
   category: string;
   thumbnail: string;
   altText: string;
-  height?: number;
+  thumbnailWidth: number;
+  thumbnailHeight: number;
 }
 
 export function PortfolioCard({
@@ -16,7 +17,8 @@ export function PortfolioCard({
   category,
   thumbnail,
   altText,
-  height = 240,
+  thumbnailWidth,
+  thumbnailHeight,
 }: PortfolioCardProps) {
   return (
     <Link
@@ -25,19 +27,19 @@ export function PortfolioCard({
       style={{
         position: 'relative',
         display: 'block',
-        height,
         borderRadius: 8,
         overflow: 'hidden',
         background: 'var(--surface)',
       }}
       aria-label={`Ver proyecto: ${title}`}
     >
-      {/* Thumbnail */}
+      {/* Thumbnail — natural aspect ratio */}
       <Image
         src={thumbnail}
         alt={altText}
-        fill
-        style={{ objectFit: 'cover', objectPosition: 'center' }}
+        width={thumbnailWidth}
+        height={thumbnailHeight}
+        style={{ width: '100%', height: 'auto', display: 'block' }}
         sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
       />
 

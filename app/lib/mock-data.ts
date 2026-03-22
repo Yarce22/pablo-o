@@ -49,7 +49,8 @@ export const portfolioProjects = [
     category: 'deportes',
     thumbnail: 'https://picsum.photos/seed/mountain1/600/400',
     altText: 'Atleta corriendo en montaña',
-    height: 240,
+    thumbnailWidth: 600,
+    thumbnailHeight: 400,
   },
   {
     id: '2',
@@ -58,7 +59,8 @@ export const portfolioProjects = [
     category: 'retrato',
     thumbnail: 'https://picsum.photos/seed/portrait1/600/700',
     altText: 'Retrato urbano en blanco y negro',
-    height: 300,
+    thumbnailWidth: 600,
+    thumbnailHeight: 700,
   },
   {
     id: '3',
@@ -67,7 +69,8 @@ export const portfolioProjects = [
     category: 'naturaleza',
     thumbnail: 'https://picsum.photos/seed/nature1/600/450',
     altText: 'Paisaje natural al amanecer',
-    height: 260,
+    thumbnailWidth: 600,
+    thumbnailHeight: 450,
   },
   {
     id: '4',
@@ -76,7 +79,8 @@ export const portfolioProjects = [
     category: 'eventos',
     thumbnail: 'https://picsum.photos/seed/festival1/600/520',
     altText: 'Fotografía de evento musical',
-    height: 280,
+    thumbnailWidth: 600,
+    thumbnailHeight: 520,
   },
   {
     id: '5',
@@ -85,7 +89,8 @@ export const portfolioProjects = [
     category: 'producto',
     thumbnail: 'https://picsum.photos/seed/product1/600/400',
     altText: 'Fotografía de producto artesanal',
-    height: 240,
+    thumbnailWidth: 600,
+    thumbnailHeight: 400,
   },
   {
     id: '6',
@@ -94,7 +99,8 @@ export const portfolioProjects = [
     category: 'comercial',
     thumbnail: 'https://picsum.photos/seed/commercial1/600/600',
     altText: 'Producción de spot publicitario',
-    height: 320,
+    thumbnailWidth: 600,
+    thumbnailHeight: 600,
   },
   {
     id: '7',
@@ -103,7 +109,8 @@ export const portfolioProjects = [
     category: '3d',
     thumbnail: 'https://picsum.photos/seed/3d1/600/400',
     altText: 'Animación de personaje 3D',
-    height: 240,
+    thumbnailWidth: 600,
+    thumbnailHeight: 400,
   },
   {
     id: '8',
@@ -112,7 +119,8 @@ export const portfolioProjects = [
     category: 'deportes',
     thumbnail: 'https://picsum.photos/seed/extreme1/600/500',
     altText: 'Fotografía de deporte extremo',
-    height: 280,
+    thumbnailWidth: 600,
+    thumbnailHeight: 500,
   },
   {
     id: '9',
@@ -121,7 +129,8 @@ export const portfolioProjects = [
     category: 'retrato',
     thumbnail: 'https://picsum.photos/seed/fineart1/600/460',
     altText: 'Retrato fine art iluminación dramática',
-    height: 260,
+    thumbnailWidth: 600,
+    thumbnailHeight: 460,
   },
   {
     id: '10',
@@ -130,7 +139,8 @@ export const portfolioProjects = [
     category: 'documental',
     thumbnail: 'https://picsum.photos/seed/doc1/600/540',
     altText: 'Documental de vida urbana',
-    height: 300,
+    thumbnailWidth: 600,
+    thumbnailHeight: 540,
   },
   {
     id: '11',
@@ -139,7 +149,8 @@ export const portfolioProjects = [
     category: 'animacion',
     thumbnail: 'https://picsum.photos/seed/anim1/600/400',
     altText: 'Animación corporativa 2D',
-    height: 240,
+    thumbnailWidth: 600,
+    thumbnailHeight: 400,
   },
   {
     id: '12',
@@ -148,7 +159,8 @@ export const portfolioProjects = [
     category: 'producto',
     thumbnail: 'https://picsum.photos/seed/still1/600/500',
     altText: 'Fotografía de producto editorial',
-    height: 280,
+    thumbnailWidth: 600,
+    thumbnailHeight: 500,
   },
 ];
 

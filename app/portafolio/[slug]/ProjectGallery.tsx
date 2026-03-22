@@ -148,7 +148,7 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
           {/* Anterior */}
           {activeIndex > 0 && (
             <button
-              onClick={() => goTo(activeIndex - 1)}
+              onClick={(e) => { e.stopPropagation(); goTo(activeIndex - 1); }}
               aria-label="Foto anterior"
               style={{
                 position: 'fixed',
@@ -175,7 +175,7 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
           {/* Siguiente */}
           {activeIndex < images.length - 1 && (
             <button
-              onClick={() => goTo(activeIndex + 1)}
+              onClick={(e) => { e.stopPropagation(); goTo(activeIndex + 1); }}
               aria-label="Foto siguiente"
               style={{
                 position: 'fixed',

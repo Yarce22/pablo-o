@@ -4,7 +4,8 @@
       "WebFetch(domain:cdn.contentful.com)",
       "Bash(curl:*)",
       "Bash(npm install:*)",
-      "Bash(\"C:\\\\Users\\\\alejo\\\\Documents\\\\Programacion\\\\pablo-portfolio\\\\app\\\\api\\\\contact\\\\route.ts\")"
+      "Bash(\"C:\\\\Users\\\\alejo\\\\Documents\\\\Programacion\\\\pablo-portfolio\\\\app\\\\api\\\\contact\\\\route.ts\")",
+      "Bash(npx tsc:*)"
     ]
   }
 }

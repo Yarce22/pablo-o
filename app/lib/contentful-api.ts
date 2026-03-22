@@ -1,4 +1,4 @@
-import { cfFetch, resolveAsset, resolveEntry, CfLink } from './contentful';
+import { cfFetch, resolveAsset, resolveAssetWithDimensions, resolveEntry, CfLink } from './contentful';
 
 // Extrae texto plano de un documento Rich Text de Contentful
 function richTextToString(doc: unknown): string {
@@ -164,9 +164,10 @@ export interface PortfolioProject {
   slug: string;
   category: string;
   thumbnail: string;
+  thumbnailWidth: number;
+  thumbnailHeight: number;
   altText: string;
   featured: boolean;
-  height: number;
 }
 
 export async function getPortfolioProjects(): Promise<PortfolioProject[]> {
@@ -179,15 +180,17 @@ export async function getPortfolioProjects(): Promise<PortfolioProject[]> {
       f.category,
       data.includes,
     );
+    const thumb = resolveAssetWithDimensions(f.thumbnail, data.includes);
     return {
       id: item.sys.id,
       title: f.title,
       slug: f.slug,
       category: catEntry?.fields.slug ?? '',
-      thumbnail: resolveAsset(f.thumbnail, data.includes) ?? '',
+      thumbnail: thumb?.url ?? '',
+      thumbnailWidth: thumb?.width ?? 600,
+      thumbnailHeight: thumb?.height ?? 400,
       altText: f.altText,
       featured: f.featured ?? false,
-      height: 240,
     };
   });
 }
@@ -240,6 +243,8 @@ export interface PortfolioProjectDetail {
   categoryName: string;
   categorySlug: string;
   thumbnail: string;
+  thumbnailWidth: number;
+  thumbnailHeight: number;
   altText: string;
   description: string;
   images: string[];
@@ -257,13 +262,16 @@ export async function getPortfolioProject(
   if (!item) return null;
   const f = item.fields;
   const catEntry = resolveEntry<PortfolioCategoryFields>(f.category, data.includes);
+  const thumb = resolveAssetWithDimensions(f.thumbnail, data.includes);
   return {
     id: item.sys.id,
     title: f.title,
     slug: f.slug,
     categoryName: catEntry?.fields.name ?? '',
     categorySlug: catEntry?.fields.slug ?? '',
-    thumbnail: resolveAsset(f.thumbnail, data.includes) ?? '',
+    thumbnail: thumb?.url ?? '',
+    thumbnailWidth: thumb?.width ?? 600,
+    thumbnailHeight: thumb?.height ?? 400,
     altText: f.altText,
     description: f.description ?? '',
     images: (f.images ?? [])

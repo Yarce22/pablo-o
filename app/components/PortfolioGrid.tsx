@@ -7,7 +7,8 @@ interface Project {
   category: string;
   thumbnail: string;
   altText: string;
-  height: number;
+  thumbnailWidth: number;
+  thumbnailHeight: number;
 }
 
 interface PortfolioGridProps {
@@ -41,7 +42,8 @@ export function PortfolioGrid({ projects }: PortfolioGridProps) {
             category={project.category}
             thumbnail={project.thumbnail}
             altText={project.altText}
-            height={project.height}
+            thumbnailWidth={project.thumbnailWidth}
+            thumbnailHeight={project.thumbnailHeight}
           />
         </div>
       ))}

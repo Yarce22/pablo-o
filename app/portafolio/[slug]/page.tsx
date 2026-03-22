@@ -46,36 +46,44 @@ export default async function ProjectPage({
     <article>
       {/* Hero: video o imagen principal */}
       <div style={{ padding: '40px var(--page-px) 0' }}>
-      <div
-        style={{
-          position: 'relative',
-          width: '100%',
-          aspectRatio: '16/9',
-          maxHeight: '80dvh',
-          background: 'var(--surface)',
-          borderRadius: 8,
-          overflow: 'hidden',
-        }}
-      >
         {embedUrl ? (
-          <iframe
-            src={embedUrl}
-            title={project.title}
-            style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
+          <div
+            style={{
+              position: 'relative',
+              width: '100%',
+              aspectRatio: '16/9',
+              maxHeight: '80dvh',
+              background: 'var(--surface)',
+              borderRadius: 8,
+              overflow: 'hidden',
+            }}
+          >
+            <iframe
+              src={embedUrl}
+              title={project.title}
+              style={{ width: '100%', height: '100%', border: 'none', display: 'block' }}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
         ) : (
           <Image
             src={project.thumbnail}
             alt={project.altText}
-            fill
-            style={{ objectFit: 'cover' }}
+            width={project.thumbnailWidth}
+            height={project.thumbnailHeight}
+            style={{
+              width: '100%',
+              height: 'auto',
+              maxHeight: '80dvh',
+              objectFit: 'contain',
+              display: 'block',
+              borderRadius: 8,
+            }}
             sizes="100vw"
             priority
           />
         )}
-      </div>
       </div>
 
       {/* Info del proyecto */}
