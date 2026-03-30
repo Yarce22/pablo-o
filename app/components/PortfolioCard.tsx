@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -20,10 +23,34 @@ export function PortfolioCard({
   thumbnailWidth,
   thumbnailHeight,
 }: PortfolioCardProps) {
+  const [active, setActive] = useState(false);
+
+  const handleTap = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      // On touch devices, first tap reveals overlay; second tap navigates
+      if ('ontouchstart' in window) {
+        if (!active) {
+          e.preventDefault();
+          setActive(true);
+        }
+        // If already active, let the Link navigate normally
+      }
+    },
+    [active],
+  );
+
+  // Close overlay when tapping outside (blur)
+  const handleBlur = useCallback(() => {
+    setActive(false);
+  }, []);
+
   return (
     <Link
       href={`/portafolio/${slug}`}
-      className="portfolio-card"
+      className="portfolio-card group"
+      onClick={handleTap}
+      onBlur={handleBlur}
+      tabIndex={0}
       style={{
         position: 'relative',
         display: 'block',
@@ -43,26 +70,14 @@ export function PortfolioCard({
         sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
       />
 
-      {/* Bottom gradient overlay */}
+      {/* Bottom gradient overlay — hidden by default, shown on hover/tap */}
       <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          background:
-            'linear-gradient(0deg, rgba(6,6,9,0.9) 0%, rgba(6,6,9,0.4) 40%, transparent 70%)',
-          pointerEvents: 'none',
-        }}
+        className={`portfolio-card__overlay ${active ? 'portfolio-card__overlay--active' : ''}`}
       />
 
-      {/* Text */}
+      {/* Text — hidden by default, shown on hover/tap */}
       <div
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          left: 0,
-          right: 0,
-          padding: '0 12px 12px',
-        }}
+        className={`portfolio-card__info ${active ? 'portfolio-card__info--active' : ''}`}
       >
         <p
           style={{

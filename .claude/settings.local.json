@@ -5,7 +5,8 @@
       "Bash(curl:*)",
       "Bash(npm install:*)",
       "Bash(\"C:\\\\Users\\\\alejo\\\\Documents\\\\Programacion\\\\pablo-portfolio\\\\app\\\\api\\\\contact\\\\route.ts\")",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npx next:*)"
     ]
   }
 }

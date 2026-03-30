@@ -220,6 +220,42 @@ button {
   .portfolio-card-wrap { margin-bottom: 20px; }
 }
 
+/* Portfolio card hover reveal */
+.portfolio-card__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgba(6,6,9,0.9) 0%, rgba(6,6,9,0.4) 40%, transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.portfolio-card__info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0 12px 12px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+}
+
+/* Desktop: reveal on hover */
+.portfolio-card:hover .portfolio-card__overlay,
+.portfolio-card:focus-within .portfolio-card__overlay,
+.portfolio-card__overlay--active {
+  opacity: 1;
+}
+
+.portfolio-card:hover .portfolio-card__info,
+.portfolio-card:focus-within .portfolio-card__info,
+.portfolio-card__info--active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* =========================================
    REDUCED MOTION
    ========================================= */
